@@ -1,8 +1,16 @@
 package br.com.felipearruda.vendas.domain.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_cliente")
 public class Cliente {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_cliente")
     private Long id;
+    @Column(name = "nome", length = 100)
     private String nome;
 
     public Cliente() {
