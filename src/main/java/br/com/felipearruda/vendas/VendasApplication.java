@@ -17,32 +17,35 @@ public class VendasApplication {
     CommandLineRunner init(@Autowired ClienteRepo clienteRepo) {
         return args -> {
             System.out.println("Salvando Clientes");
-            clienteRepo.salvar(new Cliente("Felipe"));
-            clienteRepo.salvar(new Cliente("Daniela"));
+            clienteRepo.save(new Cliente("Felipe"));
+            clienteRepo.save(new Cliente("Daniela"));
 
-            List<Cliente> clientes = clienteRepo.obterTodos();
+            Boolean existeFelipe = clienteRepo.existsByNome("Felipe");
+            System.out.println(String.format("Existem algum cliente com o nome Felipe? %s", existeFelipe.toString()));
+
+            List<Cliente> clientes = clienteRepo.findAll();
             clientes.forEach(System.out::println);
 
             System.out.println("Atualizando Clientes");
             clientes.forEach(c -> {
                 c.setNome(c.getNome() + " Atualizado");
-                clienteRepo.atualizar(c);
+                clienteRepo.save(c);
             });
 
-            clientes = clienteRepo.obterTodos();
+            clientes = clienteRepo.findAll();
             clientes.forEach(System.out::println);
 
             System.out.println("Buscando por nome");
-            clientes = clienteRepo.obterPorNome("Felipe");
+            clientes = clienteRepo.findByNomeLike("Felipe Atualizado");
             clientes.forEach(System.out::println);
 
             System.out.println("Deletando clientes");
-            clientes = clienteRepo.obterTodos();
-            clientes.forEach(clienteRepo::deletar);
-            clientes = clienteRepo.obterTodos();
+            clientes = clienteRepo.findAll();
+            clientes.forEach(clienteRepo::delete);
+            clientes = clienteRepo.findAll();
 
             if (clientes.isEmpty()) {
-                System.out.println("Nenhumm cliente encontrado");
+                System.out.println("Nenhum cliente encontrado");
             } else {
                 clientes.forEach(System.out::println);
             }
