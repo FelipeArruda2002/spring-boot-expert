@@ -19,36 +19,17 @@ public class VendasApplication {
             System.out.println("Salvando Clientes");
             clienteRepo.save(new Cliente("Felipe"));
             clienteRepo.save(new Cliente("Daniela"));
+            clienteRepo.save(new Cliente("Oseias"));
 
-            Boolean existeFelipe = clienteRepo.existsByNome("Felipe");
-            System.out.println(String.format("Existem algum cliente com o nome Felipe? %s", existeFelipe.toString()));
+            System.out.println("Clientes com nome Felipe");
+            List<Cliente> result = clienteRepo.encontrarPorNome("Felipe");
+            result.forEach(System.out::println);
 
-            List<Cliente> clientes = clienteRepo.findAll();
-            clientes.forEach(System.out::println);
+            System.out.println("Deletando cliente com o nome Daniela");
+            clienteRepo.excluirPorNome("Daniela");
+            result = clienteRepo.findAll();
+            result.forEach(System.out::println);
 
-            System.out.println("Atualizando Clientes");
-            clientes.forEach(c -> {
-                c.setNome(c.getNome() + " Atualizado");
-                clienteRepo.save(c);
-            });
-
-            clientes = clienteRepo.findAll();
-            clientes.forEach(System.out::println);
-
-            System.out.println("Buscando por nome");
-            clientes = clienteRepo.findByNomeLike("Felipe Atualizado");
-            clientes.forEach(System.out::println);
-
-            System.out.println("Deletando clientes");
-            clientes = clienteRepo.findAll();
-            clientes.forEach(clienteRepo::delete);
-            clientes = clienteRepo.findAll();
-
-            if (clientes.isEmpty()) {
-                System.out.println("Nenhum cliente encontrado");
-            } else {
-                clientes.forEach(System.out::println);
-            }
         };
     }
 
