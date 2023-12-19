@@ -2,6 +2,9 @@ package br.com.felipearruda.vendas.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_cliente")
 public class Cliente {
@@ -12,6 +15,9 @@ public class Cliente {
     private Long id;
     @Column(name = "nome", length = 100)
     private String nome;
+
+    @OneToMany(mappedBy = "cliente")
+    Set<Pedido> pedidos = new HashSet<>();
 
     public Cliente() {
     }

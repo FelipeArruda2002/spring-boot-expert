@@ -1,10 +1,22 @@
 package br.com.felipearruda.vendas.domain.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_item_pedido")
 public class ItemPedido {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "pedido_id_pedido")
     private Pedido pedido;
+    @ManyToOne
+    @JoinColumn(name = "produto_id_produto")
     private Produto produto;
+    @Column(name = "quantidade")
     private Integer quantidade;
 
     public Long getId() {
