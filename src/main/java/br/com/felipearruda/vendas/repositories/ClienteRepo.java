@@ -25,4 +25,7 @@ public interface ClienteRepo extends JpaRepository<Cliente, Long> {
 
     boolean existsByNome(String nome);
 
+    @Query(value = "select c from Cliente c left join fetch c.pedidos where c.id = :id")
+    Cliente getClienteFetchPedidos(@Param("id") Long id);
+
 }

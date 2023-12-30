@@ -18,7 +18,7 @@ public class Pedido {
     private Cliente cliente;
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
-    @Column(name = "total", length = 20, precision = 2)
+    @Column(name = "total")
     private BigDecimal total;
 
     public Long getId() {
@@ -53,4 +53,12 @@ public class Pedido {
         this.total = total;
     }
 
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "cliente=" + cliente +
+                ", dataPedido=" + dataPedido +
+                ", total=" + total +
+                '}';
+    }
 }
